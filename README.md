@@ -32,5 +32,45 @@ This Flutter-based Android app listens to incoming SMS and notifications, stores
 4. Build and install the app on an Android device:
    ```bash
    flutter run
-5. Grant necessary permissions:
-  	•	Upon installation, the app will request permissions to read SMS and access notifications. Make sure to grant these permissions for the app to function properly.
+5. Grant necessary permissions: Upon installation, the app will request permissions to read SMS and access notifications. Make sure to grant these permissions for the app to function properly.
+
+## Permissions
+
+The app requires the following permissions:
+
+- **Read SMS**: To listen to incoming SMS messages and store them locally.
+- **Notification Access**: To capture incoming notifications.
+- **Storage Permission**: For storing data locally on the device.
+
+## Technologies Used
+
+- **Flutter**: Cross-platform framework for building the Android app.
+- **Dart**: Programming language used in Flutter development.
+- **SQLite** or **Shared Preferences**: For local data storage.
+- **Android SDK**: Required for interacting with Android-specific features like SMS and notifications.
+
+## Customization
+
+The app offers various customization options:
+
+- **UI Customization**: The app’s UI can be tailored to meet specific design requirements.
+- **Notification Categories**: Users can add or edit categories for better organization of messages and notifications.
+- **Filter Options**: The filter criteria and search functionality can be extended based on user needs.
+
+## Contribution
+
+We welcome contributions to enhance the app’s functionality. If you want to contribute, please follow these steps:
+
+1. **Fork the Repository**: Create your own copy of the repository.
+2. **Make Improvements**: Implement your changes and improvements.
+3. **Submit a Pull Request**: Share your enhancements by submitting a pull request to the main repository.
+
+Thank you for contributing!
+
+## Contact
+
+For any questions or support, please reach out to [Your Contact Information].
+
+---
+
+**Note**: Make sure to replace "App Name" and "[Your Contact Information]" with the actual name of your app and your contact details. You might also want to add sections like "Installation", "Usage", and "License" depending on your project's needs.
