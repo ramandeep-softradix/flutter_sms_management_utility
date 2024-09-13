@@ -23,3 +23,14 @@ This Flutter-based Android app listens to incoming SMS and notifications, stores
 1. Clone this repository:
    ```bash
    git clone https://github.com/your-repo/sms-notification-listener.git
+2. Navigate to the project directory:
+   ```bash
+   cd sms-notification-listener
+3. Install dependencies:
+   ```bash
+   flutter pub get
+4. Build and install the app on an Android device:
+   ```bash
+   flutter run
+5. Grant necessary permissions:
+  	•	Upon installation, the app will request permissions to read SMS and access notifications. Make sure to grant these permissions for the app to function properly.
