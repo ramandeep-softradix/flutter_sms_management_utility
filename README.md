@@ -71,6 +71,10 @@ Thank you for contributing!
 
 For any questions or support, please reach out to [Your Contact Information].
 
----
+## License
 
-**Note**: Make sure to replace "App Name" and "[Your Contact Information]" with the actual name of your app and your contact details. You might also want to add sections like "Installation", "Usage", and "License" depending on your project's needs.
+This project is licensed under the MIT License. See the LICENSE file for details.
+```bash
+This version of the README file now includes all the requested sections, formatted appropriately for GitHub.
+
+---
