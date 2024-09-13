@@ -69,7 +69,7 @@ Thank you for contributing!
 
 ## Contact
 
-For any questions or support, please reach out to [Your Contact Information].
+For any questions or support, please reach out to [info@softradix.com].
 
 ## License
 
