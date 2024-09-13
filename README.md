@@ -46,7 +46,7 @@ The app requires the following permissions:
 
 - **Flutter**: Cross-platform framework for building the Android app.
 - **Dart**: Programming language used in Flutter development.
-- **SQLite** or **Shared Preferences**: For local data storage.
+- **Shared Preferences**: For local data storage.
 - **Android SDK**: Required for interacting with Android-specific features like SMS and notifications.
 
 ## Customization
@@ -77,4 +77,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
 ```bash
 This version of the README file now includes all the requested sections, formatted appropriately for GitHub.
 
----
+
