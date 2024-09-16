@@ -64,6 +64,4 @@ class MessageListController extends GetxController {
     Prefs.write("messages", allMessages);
   }
 
-
-
 }

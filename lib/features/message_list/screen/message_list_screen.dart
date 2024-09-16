@@ -15,6 +15,7 @@ class MessageListScreen extends GetView<MessageListController> {
       backgroundColor: Colors.white,
       appBar: PreferredSize(preferredSize: Size(100.w, 50.h),
         child: Obx(()=>AppBar(
+          automaticallyImplyLeading: controller.isSearching.value?false:true,
         title: controller.isSearching.value
             ? TextField(
           controller: controller.searchController,
