@@ -15,7 +15,7 @@ class HomeScreen extends GetView<HomeScreenController> {
         backgroundColor: Colors.white,
         appBar: AppBar(title: const Text(CommonStrings.applicationList),
           actions: [
-            controller.packageList.isNotEmpty?Padding(
+            Obx(()=>controller.packageList.isNotEmpty?Padding(
               padding:  EdgeInsets.only(right: 10.w),
               child: InkWell(
                 onTap: (){
@@ -31,7 +31,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                 Navigator.pop(context);
                               },
                               child: const Icon(Icons.cancel)),
-                           SizedBox(width: 10.w),
+                          SizedBox(width: 10.w),
                           InkWell(
                               onTap: (){
                                 controller.clearAllData();
@@ -43,7 +43,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                 },
                 child: const Icon(Icons.delete, color: Colors.red,),
               ),
-            ):const SizedBox(),
+            ):const SizedBox(),),
 
             Padding(
               padding:  EdgeInsets.only(right: 10.w),
@@ -91,7 +91,7 @@ class HomeScreen extends GetView<HomeScreenController> {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: (){
-                    Get.toNamed(Routes.messageList, arguments: controller.packageList[index].toString().trim());
+                    controller.goToMessageListScree(index: index);
                   },
                   onLongPress: (){
                     showDialog(

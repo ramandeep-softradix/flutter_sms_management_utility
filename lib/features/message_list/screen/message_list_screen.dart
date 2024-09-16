@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:sms_demo/core/constants/app_strings.dart';
 import '../controller/message_list_controller.dart';
 
-
 class MessageListScreen extends GetView<MessageListController> {
   const MessageListScreen({super.key});
 
@@ -14,7 +13,30 @@ class MessageListScreen extends GetView<MessageListController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title:Text(controller.appName)),
+      appBar: PreferredSize(preferredSize: Size(100.w, 50.h),
+        child: Obx(()=>AppBar(
+        title: controller.isSearching.value
+            ? TextField(
+          controller: controller.searchController,
+          autofocus: true,
+          decoration: const InputDecoration(
+            hintText: 'Search...',
+            border: InputBorder.none,
+          ),
+          onChanged: (query) {
+            controller.searchMessage(query:query);
+          },
+        )
+            : Text(controller.appName),
+        actions: [
+          IconButton(
+            icon: Icon(controller.isSearching.value ? Icons.close : Icons.search),
+            onPressed: () {
+              controller.searchingToggle();
+            },
+          ),
+        ],
+      )),),
       body: Container(
         padding:  EdgeInsets.symmetric(vertical: 16.0.h),
         alignment: Alignment.topLeft,
@@ -25,17 +47,19 @@ class MessageListScreen extends GetView<MessageListController> {
           itemCount: controller.messages.length, //messages.length,
           itemBuilder: (BuildContext context, int index) {
             return Slidable(
-              key: const ValueKey(0),
+
+              key: ValueKey(controller.messages[index].id),
               startActionPane: ActionPane(
                 motion: const ScrollMotion(),
                 dismissible: DismissiblePane(onDismissed: () {
+                  print("This is slidable actions onDismissed");
                   controller.deleteMatchingEntry(controller.messages[index].id);
 
                 }),
                 children: [
                   SlidableAction(
                     onPressed: (_){
-
+                      print("This is slidable actions");
                     },
                     backgroundColor: Color(0xFFFE4A49),
                     foregroundColor: Colors.white,

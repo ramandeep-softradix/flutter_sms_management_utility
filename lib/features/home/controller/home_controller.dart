@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:notifications/notifications.dart';
+import 'package:sms_demo/core/routes/routes.dart';
 import 'package:sms_demo/core/storage/local_storage.dart';
 
 class HomeScreenController extends GetxController {
@@ -18,7 +19,6 @@ class HomeScreenController extends GetxController {
   void onInit() {
    messages.value = Prefs.read('messages')??[];
    packageList.value = Prefs.read('packagesList')??[];
-
   // print("This is converted data: ${packageList.first.runtimeType}");
    startListening();
     super.onInit();
@@ -70,6 +70,7 @@ class HomeScreenController extends GetxController {
     packageList.remove(targetEntry);
     Prefs.write("messages", messages);
     Prefs.write("packagesList", packageList);
+    update();
     Get.back();
   }
 
@@ -79,6 +80,12 @@ class HomeScreenController extends GetxController {
     Prefs.write("messages", messages);
     Prefs.write("packagesList", packageList);
     Get.back();
+  }
+
+  goToMessageListScree({required index}){
+    Get.toNamed(Routes.messageList, arguments: packageList[index].toString().trim())?.then((value) async {
+     packageList.refresh();
+    });
   }
 
 }
