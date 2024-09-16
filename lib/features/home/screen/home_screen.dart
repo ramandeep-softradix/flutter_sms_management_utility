@@ -43,10 +43,40 @@ class HomeScreen extends GetView<HomeScreenController> {
                 },
                 child: const Icon(Icons.delete, color: Colors.red,),
               ),
-            ):const SizedBox()
+            ):const SizedBox(),
+
+            Padding(
+              padding:  EdgeInsets.only(right: 10.w),
+              child: InkWell(
+                onTap: (){
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text(CommonStrings.alert),
+                        content: const Text(CommonStrings.deleteAllAppsMessages),
+                        actions: [
+                          InkWell(
+                              onTap: (){
+                                Navigator.pop(context);
+                              },
+                              child: const Icon(Icons.cancel)),
+                          SizedBox(width: 10.w),
+                          InkWell(
+                              onTap: (){
+
+                              },
+                              child: const Icon(Icons.science_outlined, color: Colors.grey,))
+                        ],
+                      );
+                    },);
+                },
+                child: const Icon(Icons.science_outlined, color: Colors.grey,),
+              ),
+            )
           ],
         ),
-        body: Container(
+        body: Obx(()=> controller.packageList.isNotEmpty?Container(
             padding:  EdgeInsets.symmetric(vertical: 16.0.h),
             alignment: Alignment.topLeft,
             child: GridView.builder(
@@ -76,7 +106,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                   Navigator.pop(context);
                                 },
                                 child: const Icon(Icons.cancel)),
-                             SizedBox(width: 10.w,),
+                            SizedBox(width: 10.w,),
                             InkWell(
                                 onTap: (){
                                   controller.deleteMatchingEntry(controller.packageList[index].toString().trim());
@@ -105,6 +135,8 @@ class HomeScreen extends GetView<HomeScreenController> {
               },
             )
 
+        ):
+        Center(child: Text(ErrorMessages.noMessageFound,style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),)),
         )
     );
   }

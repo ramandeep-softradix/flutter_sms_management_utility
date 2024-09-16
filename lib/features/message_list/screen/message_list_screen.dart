@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:get/get.dart';
 import 'package:sms_demo/core/constants/app_strings.dart';
 import '../controller/message_list_controller.dart';
 
@@ -18,7 +18,7 @@ class MessageListScreen extends GetView<MessageListController> {
       body: Container(
         padding:  EdgeInsets.symmetric(vertical: 16.0.h),
         alignment: Alignment.topLeft,
-        child: controller.messages.isNotEmpty?ListView.builder(
+        child: Obx(()=>controller.messages.isNotEmpty?ListView.builder(
           physics: const ScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
@@ -29,7 +29,7 @@ class MessageListScreen extends GetView<MessageListController> {
               startActionPane: ActionPane(
                 motion: const ScrollMotion(),
                 dismissible: DismissiblePane(onDismissed: () {
-                  //deleteMatchingEntry(messages[index].id);
+                  controller.deleteMatchingEntry(controller.messages[index].id);
 
                 }),
                 children: [
@@ -51,14 +51,14 @@ class MessageListScreen extends GetView<MessageListController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(controller.messages[index].message, style:  TextStyle(fontSize: 13.sp)),
-                     SizedBox(height: 4.h,),
+                    SizedBox(height: 4.h,),
                     Text(controller.messages[index].package.trim(), style:  TextStyle(fontSize: 10.sp)),
                   ],
                 ),
                 trailing: Text(controller.messages[index].timeStamp),
               ),
             );
-          },): Text(ErrorMessages.noMessageFound,style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),),
+          },): Center(child: Text(ErrorMessages.noMessageFound,style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),)),)
       ),
 
     );

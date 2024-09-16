@@ -7,15 +7,19 @@ import 'package:sms_demo/core/storage/local_storage.dart';
 
 class HomeScreenController extends GetxController {
 
-  List messages = [];
-  List packageList = [];
+  RxList messages = [].obs;
+  RxList packageList = [].obs;
   late Notifications _notifications;
   late StreamSubscription<NotificationEvent> _subscription;
 
+
+
  @override
   void onInit() {
-   messages = Prefs.read('messages')??[];
-   packageList = Prefs.read('packagesList')??[];
+   messages.value = Prefs.read('messages')??[];
+   packageList.value = Prefs.read('packagesList')??[];
+
+  // print("This is converted data: ${packageList.first.runtimeType}");
    startListening();
     super.onInit();
   }
@@ -24,12 +28,14 @@ class HomeScreenController extends GetxController {
 
   void onData(NotificationEvent event) {
     String formattedDate = DateFormat('h:mm a - dd-MM-yyyy').format(event.timeStamp!);
+    print("This is message ID: ${event.timeStamp.toString()}");
     messages.add({
-      "id":event.timeStamp.toString(), // This field is always get unique time so i make it id.
+      "id":event.timeStamp.toString().replaceAll(" ", ""), // This field is always get unique time so i make it id.
       "title":event.title, // String
       "message":event.message,  // String
       "timeStamp":formattedDate,  // String
-      "package":event.packageName.toString(),  // String
+      "package":event.packageName.toString(),
+      "tagList":[]// String
     }
     );
     if(!packageList.contains(event.packageName.toString())){
@@ -43,13 +49,16 @@ class HomeScreenController extends GetxController {
 
   void startListening() {
     _notifications = Notifications();
-    try {
-      _subscription = _notifications.notificationStream!.listen(onData);
-    } on NotificationException catch (exception) {
-      if (kDebugMode) {
-        print("Error: $exception");
-      }
-    }
+
+     try {
+       if(_notifications.notificationStream!.isBroadcast) {
+         _subscription = _notifications.notificationStream!.listen(onData);
+       }
+     } on NotificationException catch (exception) {
+       if (kDebugMode) {
+         print("Error: $exception");
+     }
+   }
   }
 
   void stopListening() {
