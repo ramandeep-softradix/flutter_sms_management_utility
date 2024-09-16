@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sms_demo/core/constants/app_strings.dart';
-import 'package:sms_demo/core/routes/routes.dart';
 import '../controller/home_controller.dart';
 
 class HomeScreen extends GetView<HomeScreenController> {
@@ -53,8 +52,8 @@ class HomeScreen extends GetView<HomeScreenController> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: const Text(CommonStrings.alert),
-                        content: const Text(CommonStrings.deleteAllAppsMessages),
+                        title: const Text(CommonStrings.filter),
+                        content: const Text(CommonStrings.filterMessages),
                         actions: [
                           InkWell(
                               onTap: (){
