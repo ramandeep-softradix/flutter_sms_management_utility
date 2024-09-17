@@ -8,15 +8,14 @@ class MessageListController extends GetxController {
   String appName = Get.arguments;
   RxList messages = [].obs;
   List allMessages = [];
-
   RxList tempMessages = [].obs;
-
   RxBool isSearching = false.obs;
   TextEditingController searchController = TextEditingController();
 
+
   @override
   void onInit() {
-    allMessages = Prefs.read('messages')??[];
+    allMessages = Prefs.read(Prefs.messages)??[];
     for(var m in allMessages){
       if(m["package"] == appName){
         messages.add(MessageModel.fromMap(m));
@@ -54,14 +53,21 @@ class MessageListController extends GetxController {
         allMessages.remove(m);
         messages.remove(m);
         if(messages.isEmpty){
-          List packageList = Prefs.read('packagesList')??[];
+          List packageList = Prefs.read(Prefs.packageList)??[];
           packageList.remove(appName);
-          Prefs.write("packagesList", packageList);
+          Prefs.write(Prefs.packageList, packageList);
         }
         break;
       }
     }
-    Prefs.write("messages", allMessages);
+    Prefs.write(Prefs.messages, allMessages);
+  }
+
+  addToFavorite(MessageModel message){
+    List data = Prefs.read(Prefs.favoriteMessages)??[];
+    data.add(message.toMap());
+    Prefs.write(Prefs.favoriteMessages, data);
+    Get.back();
   }
 
 }

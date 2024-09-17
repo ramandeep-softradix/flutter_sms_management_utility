@@ -21,7 +21,7 @@ class MessageListScreen extends GetView<MessageListController> {
           controller: controller.searchController,
           autofocus: true,
           decoration: const InputDecoration(
-            hintText: 'Search...',
+            hintText: CommonStrings.search,
             border: InputBorder.none,
           ),
           onChanged: (query) {
@@ -53,23 +53,42 @@ class MessageListScreen extends GetView<MessageListController> {
               startActionPane: ActionPane(
                 motion: const ScrollMotion(),
                 dismissible: DismissiblePane(onDismissed: () {
-                  print("This is slidable actions onDismissed");
                   controller.deleteMatchingEntry(controller.messages[index].id);
-
                 }),
                 children: [
                   SlidableAction(
-                    onPressed: (_){
-                      print("This is slidable actions");
-                    },
-                    backgroundColor: Color(0xFFFE4A49),
+                    onPressed: (_){},
+                    backgroundColor: const Color(0xFFFE4A49),
                     foregroundColor: Colors.white,
                     icon: Icons.delete,
-                    label: 'Delete',
+                    label: CommonStrings.delete,
                   ),
                 ],
               ),
               child: ListTile(
+                onLongPress: (){
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text(CommonStrings.filter),
+                        content: const Text(CommonStrings.favoriteMessages),
+                        actions: [
+                          InkWell(
+                              onTap: (){
+                                Navigator.pop(context);
+                              },
+                              child: const Icon(Icons.cancel)),
+                          SizedBox(width: 10.w),
+                          InkWell(
+                              onTap: (){
+                                controller.addToFavorite(controller.messages[index]);
+                              },
+                              child: const Icon(Icons.star_border_rounded, color: Colors.grey,))
+                        ],
+                      );
+                    },);
+                },
                 horizontalTitleGap: 1,
                 title: Text(controller.messages[index].title,style:  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),),
                 subtitle: Column(

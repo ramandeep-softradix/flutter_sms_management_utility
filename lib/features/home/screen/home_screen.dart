@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sms_demo/core/constants/app_strings.dart';
+import '../../../core/routes/routes.dart';
 import '../controller/home_controller.dart';
 
 class HomeScreen extends GetView<HomeScreenController> {
@@ -48,29 +49,10 @@ class HomeScreen extends GetView<HomeScreenController> {
               padding:  EdgeInsets.only(right: 10.w),
               child: InkWell(
                 onTap: (){
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text(CommonStrings.filter),
-                        content: const Text(CommonStrings.filterMessages),
-                        actions: [
-                          InkWell(
-                              onTap: (){
-                                Navigator.pop(context);
-                              },
-                              child: const Icon(Icons.cancel)),
-                          SizedBox(width: 10.w),
-                          InkWell(
-                              onTap: (){
+                  Get.toNamed(Routes.favoriteMessages);
 
-                              },
-                              child: const Icon(Icons.science_outlined, color: Colors.grey,))
-                        ],
-                      );
-                    },);
                 },
-                child: const Icon(Icons.science_outlined, color: Colors.grey,),
+                child: const Icon(Icons.star_border_rounded, color: Colors.grey,),
               ),
             )
           ],

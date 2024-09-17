@@ -17,9 +17,8 @@ class HomeScreenController extends GetxController {
 
  @override
   void onInit() {
-   messages.value = Prefs.read('messages')??[];
-   packageList.value = Prefs.read('packagesList')??[];
-  // print("This is converted data: ${packageList.first.runtimeType}");
+   messages.value = Prefs.read(Prefs.messages)??[];
+   packageList.value = Prefs.read(Prefs.packageList)??[];
    startListening();
     super.onInit();
   }
@@ -40,16 +39,15 @@ class HomeScreenController extends GetxController {
     );
     if(!packageList.contains(event.packageName.toString())){
       packageList.add(event.packageName.toString());
-      Prefs.write("packagesList", packageList);
+      Prefs.write(Prefs.packageList, packageList);
     }
-    Prefs.write('messages', messages);
+    Prefs.write(Prefs.messages, messages);
     // print(event);
   }
 
 
   void startListening() {
     _notifications = Notifications();
-
      try {
        if(_notifications.notificationStream!.isBroadcast) {
          _subscription = _notifications.notificationStream!.listen(onData);
@@ -68,8 +66,8 @@ class HomeScreenController extends GetxController {
   void deleteMatchingEntry( String targetEntry) {
     messages.removeWhere((value) => value.toString() == targetEntry.toString() );
     packageList.remove(targetEntry);
-    Prefs.write("messages", messages);
-    Prefs.write("packagesList", packageList);
+    Prefs.write(Prefs.messages, messages);
+    Prefs.write(Prefs.packageList, packageList);
     update();
     Get.back();
   }
@@ -77,8 +75,8 @@ class HomeScreenController extends GetxController {
   clearAllData(){
     messages.clear();
     packageList.clear();
-    Prefs.write("messages", messages);
-    Prefs.write("packagesList", packageList);
+    Prefs.write(Prefs.messages, messages);
+    Prefs.write(Prefs.packageList, packageList);
     Get.back();
   }
 
